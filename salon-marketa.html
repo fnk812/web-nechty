@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salón Markéta – Nechty & Vizáž Poprad</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6f1;
+    --blush: #e8c5b0;
+    --rose: #c4826a;
+    --deep: #2a1a14;
+    --muted: #8a6e63;
+    --gold: #c9a96e;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(250, 246, 241, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(196,130,106,0.15);
+    transition: all 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--deep);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--rose); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--rose); }
+  .nav-cta {
+    background: var(--rose);
+    color: var(--white) !important;
+    padding: 0.55rem 1.4rem;
+    border-radius: 2px;
+  }
+  .nav-cta:hover { background: var(--deep); color: var(--white) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 1.5px; background: var(--deep); display: block; transition: 0.3s; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem 6rem 5rem;
+    position: relative;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block; width: 30px; height: 1px; background: var(--rose);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--deep);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em { font-style: italic; color: var(--rose); }
+  .hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--rose);
+    color: var(--white);
+    padding: 0.9rem 2.2rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--deep); transform: translateY(-2px); }
+  .btn-secondary {
+    border: 1px solid var(--blush);
+    color: var(--deep);
+    padding: 0.9rem 2.2rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--rose); color: var(--rose); }
+
+  .hero-right {
+    position: relative;
+    background: linear-gradient(135deg, #e8c5b0 0%, #d4a08a 40%, #c4826a 100%);
+    overflow: hidden;
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-visual {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-circle {
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .hero-circle::before {
+    content: '';
+    position: absolute;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .hero-icon {
+    font-size: 5rem;
+    position: relative; z-index: 1;
+    filter: drop-shadow(0 4px 20px rgba(0,0,0,0.1));
+  }
+  .hero-badge {
+    position: absolute; bottom: 3rem; left: 3rem;
+    background: var(--white);
+    padding: 1.2rem 1.5rem;
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(42,26,20,0.15);
+  }
+  .hero-badge-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 600;
+    color: var(--deep);
+  }
+  .hero-badge-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+
+  .hero-accent {
+    position: absolute; top: 3rem; right: 3rem;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 1rem 1.4rem;
+    border-radius: 4px;
+    text-align: center;
+    color: var(--white);
+  }
+  .hero-accent-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 300;
+    display: block; line-height: 1;
+  }
+  .hero-accent-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; }
+
+  /* AKCIA BANNER */
+  .promo-banner {
+    background: var(--deep);
+    color: var(--white);
+    text-align: center;
+    padding: 1rem 2rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+  }
+  .promo-banner span { color: var(--gold); font-weight: 500; }
+
+  /* SERVICES */
+  .services { padding: 7rem 5rem; }
+  .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-tag {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--rose); margin-bottom: 1rem; display: block;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 300; color: var(--deep);
+    line-height: 1.2;
+  }
+  .section-title em { font-style: italic; color: var(--rose); }
+  .section-line {
+    width: 40px; height: 1px; background: var(--blush);
+    margin: 1.5rem auto 0;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .service-card {
+    background: var(--white);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: default;
+  }
+  .service-card:hover { transform: translateY(-4px); }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--rose);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-emoji { font-size: 2.5rem; margin-bottom: 1.5rem; display: block; }
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 400;
+    color: var(--deep); margin-bottom: 0.8rem;
+  }
+  .service-desc { font-size: 0.88rem; line-height: 1.7; color: var(--muted); margin-bottom: 1.5rem; }
+  .service-list { list-style: none; }
+  .service-list li {
+    font-size: 0.82rem; color: var(--muted);
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--cream);
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .service-list li::before { content: '–'; color: var(--rose); }
+
+  /* PROMO */
+  .promo-section {
+    background: linear-gradient(135deg, var(--deep) 0%, #3d2418 100%);
+    padding: 6rem 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .promo-section::before {
+    content: '';
+    position: absolute; top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 60% 50%, rgba(196,130,106,0.12) 0%, transparent 60%);
+  }
+  .promo-section .section-tag { color: var(--gold); }
+  .promo-section .section-title { color: var(--white); }
+  .promo-desc {
+    font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.65);
+    max-width: 540px; margin: 1.5rem auto 2.5rem;
+  }
+  .promo-highlight {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 0.4rem 1rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+  }
+
+  /* ABOUT */
+  .about {
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding: 7rem 5rem; gap: 6rem; align-items: center;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-img-wrap {
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(160deg, var(--blush), var(--rose));
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-img-wrap .placeholder-icon { font-size: 6rem; opacity: 0.4; }
+  .about-card {
+    position: absolute; bottom: -2rem; right: -2rem;
+    background: var(--white);
+    padding: 1.5rem 2rem;
+    box-shadow: 0 15px 50px rgba(42,26,20,0.12);
+    border-radius: 4px;
+    min-width: 180px;
+  }
+  .about-card-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; font-weight: 300; color: var(--rose);
+    line-height: 1;
+  }
+  .about-card-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; }
+
+  .about-content .section-header { text-align: left; }
+  .about-content .section-line { margin-left: 0; }
+  .about-text { font-size: 0.92rem; line-height: 1.8; color: var(--muted); margin: 1.5rem 0 2rem; }
+  .about-features { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
+  .about-feature {
+    display: flex; align-items: flex-start; gap: 1rem;
+  }
+  .about-feature-icon {
+    width: 36px; height: 36px; min-width: 36px;
+    background: var(--cream);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+  .about-feature-text strong { display: block; font-size: 0.88rem; color: var(--deep); }
+  .about-feature-text span { font-size: 0.8rem; color: var(--muted); }
+
+  /* CONTACT */
+  .contact {
+    background: var(--cream);
+    padding: 7rem 5rem;
+  }
+  .contact-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: start;
+  }
+  .contact-info .section-header { text-align: left; }
+  .contact-info .section-line { margin-left: 0; }
+  .contact-items { margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; }
+  .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .contact-item-icon {
+    width: 42px; height: 42px; min-width: 42px;
+    background: var(--white);
+    border: 1px solid var(--blush);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+  }
+  .contact-item-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.2rem; }
+  .contact-item-value { font-size: 0.9rem; color: var(--deep); }
+
+  .contact-form { background: var(--white); padding: 2.5rem; border-radius: 4px; box-shadow: 0 8px 40px rgba(42,26,20,0.06); }
+  .form-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; color: var(--deep); margin-bottom: 1.5rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.4rem; }
+  .form-group input, .form-group textarea {
+    width: 100%; padding: 0.8rem 1rem;
+    border: 1px solid var(--blush);
+    background: var(--cream);
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; color: var(--deep);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--rose); }
+  .form-group textarea { height: 100px; resize: vertical; }
+  .form-submit {
+    width: 100%;
+    background: var(--rose); color: var(--white);
+    border: none; padding: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; letter-spacing: 0.12em;
+    text-transform: uppercase; cursor: pointer;
+    border-radius: 2px; transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--deep); }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep); color: rgba(255,255,255,0.5);
+    padding: 3rem 5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--white); text-decoration: none;
+  }
+  .footer-logo span { color: var(--rose); }
+  footer p { font-size: 0.78rem; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.78rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--rose); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * {
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 4rem 2rem; }
+    .hero-right { min-height: 50vw; }
+    .services { padding: 4rem 1.5rem; }
+    .services-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .about { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 3rem; }
+    .about-card { right: 0; }
+    .contact { padding: 4rem 1.5rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    footer { padding: 2rem 1.5rem; }
+    .promo-section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Salón <span>Markéta</span></a>
+  <ul class="nav-links">
+    <li><a href="#sluzby">Služby</a></li>
+    <li><a href="#o-nas">O nás</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+    <li><a href="tel:+421093606380" class="nav-cta">Rezervovať</a></li>
+  </ul>
+  <div class="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- PROMO BANNER -->
+<div class="promo-banner">
+  🌸 <span>Špeciálna akcia:</span> Pri nových gélových nechtoch manikúra + parafínový zábal <span>ZADARMO</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Poprad · Námestie sv. Egídia 18/41</div>
+    <h1 class="hero-title">
+      Nechty &<br><em>Vizáž</em><br>pre dokonalý vzhľad
+    </h1>
+    <p class="hero-desc">
+      Profesionálny nechtový dizajn, manikúra a líčenie v srdci Popradu. Každá zákazníčka si zaslúži individuálny prístup a starostlivosť s citom pre detail.
+    </p>
+    <div class="hero-btns">
+      <a href="tel:+421093606380" class="btn-primary">📞 Rezervovať termín</a>
+      <a href="#sluzby" class="btn-secondary">Naše služby</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="hero-circle">
+        <div class="hero-icon">💅</div>
+      </div>
+    </div>
+    <div class="hero-badge">
+      <div class="hero-badge-title">Kvetoslava Hanová</div>
+      <div class="hero-badge-sub">Vizážistka & nechtová dizajnérka</div>
+    </div>
+    <div class="hero-accent">
+      <span class="hero-accent-num">10+</span>
+      <span class="hero-accent-label">rokov skúseností</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="sluzby">
+  <div class="section-header">
+    <span class="section-tag">Naše služby</span>
+    <h2 class="section-title">Starostlivosť o vašu <em>krásu</em></h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-emoji">💅</span>
+      <h3 class="service-name">Gélové nechty</h3>
+      <p class="service-desc">Precízne modelovanie s dlhotrvajúcim leskom. Každý dizajn prispôsobený vášmu štýlu – od jemnej elegancie po výrazný vzor.</p>
+      <ul class="service-list">
+        <li>Modelovanie gélových nechtov</li>
+        <li>Farebné gély a zdobenie</li>
+        <li>Kamienky, flitre, pečiatky</li>
+        <li>Opravy a doplnenie</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <span class="service-emoji">🤲</span>
+      <h3 class="service-name">Manikúra</h3>
+      <p class="service-desc">Komplexná starostlivosť o nechty aj pokožku rúk. Doprajte si chvíľu oddychu a regenerácie s luxusným pocitom.</p>
+      <ul class="service-list">
+        <li>Suchá a mokrá manikúra</li>
+        <li>Japonská manikúra</li>
+        <li>Parafínové zábaly</li>
+        <li>Relaxačná masáž rúk</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <span class="service-emoji">✨</span>
+      <h3 class="service-name">Líčenie & Vizáž</h3>
+      <p class="service-desc">Každá príležitosť si zaslúží dokonalý make-up. Profesionálna kozmetika pre dlhotrvajúci a bezchybný efekt.</p>
+      <ul class="service-list">
+        <li>Denné a večerné líčenie</li>
+        <li>Svadobné líčenie</li>
+        <li>Stužkové slávnosti</li>
+        <li>Líčenie u vás doma</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROMO -->
+<section class="promo-section">
+  <span class="section-tag">Aktuálna akcia</span>
+  <h2 class="section-title">Špeciálna <em>ponuka</em> pre vás</h2>
+  <p class="promo-desc">Pri objednaní nových gélových nechtov získate manikúru a parafínový zábal úplne zadarmo. Doprajte svojim rukám luxusnú komplexnú starostlivosť.</p>
+  <div class="promo-highlight">Manikúra + parafínový zábal ZADARMO</div>
+  <br>
+  <a href="tel:+421093606380" class="btn-primary">Objednať sa teraz</a>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="o-nas">
+  <div class="about-visual">
+    <div class="about-img-wrap">
+      <span class="placeholder-icon">🌸</span>
+    </div>
+    <div class="about-card">
+      <div class="about-card-num">100%</div>
+      <div class="about-card-label">Spokojných zákazníčok</div>
+    </div>
+  </div>
+  <div class="about-content">
+    <div class="section-header">
+      <span class="section-tag">O nás</span>
+      <h2 class="section-title">Vaša krása v <em>dobrých rukách</em></h2>
+      <div class="section-line"></div>
+    </div>
+    <p class="about-text">
+      Salón Markéta v Poprade je miestom, kde sa o vašu krásu stará skúsená vizážistka a nechtová dizajnérka Kvetoslava Hanová. Každej zákazníčke venujeme individuálnu pozornosť a snažíme sa o dokonalý výsledok.
+    </p>
+    <div class="about-features">
+      <div class="about-feature">
+        <div class="about-feature-icon">📍</div>
+        <div class="about-feature-text">
+          <strong>Pohodlná lokalita</strong>
+          <span>Námestie sv. Egídia 18/41, pasáž, 2. poschodie, dvere č. 206</span>
+        </div>
+      </div>
+      <div class="about-feature">
+        <div class="about-feature-icon">💎</div>
+        <div class="about-feature-text">
+          <strong>Kvalitné materiály</strong>
+          <span>Používame len overené produkty pre zdravé a krásne nechty</span>
+        </div>
+      </div>
+      <div class="about-feature">
+        <div class="about-feature-icon">🎨</div>
+        <div class="about-feature-text">
+          <strong>Individuálny prístup</strong>
+          <span>Každý dizajn a líčenie prispôsobené vašej osobnosti</span>
+        </div>
+      </div>
+      <div class="about-feature">
+        <div class="about-feature-icon">🏠</div>
+        <div class="about-feature-text">
+          <strong>Líčenie u vás doma</strong>
+          <span>Vyjdeme vám v ústrety – prídem aj k vám na svadbu či oslavu</span>
+        </div>
+      </div>
+    </div>
+    <a href="tel:+421093606380" class="btn-primary">Zavolajte nám</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="kontakt">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-header">
+        <span class="section-tag">Kontakt</span>
+        <h2 class="section-title">Navštívte nás <em>v Poprade</em></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Adresa</div>
+            <div class="contact-item-value">Námestie sv. Egídia 18/41<br>058 01 Poprad (v pasáži, 2. posch., č. 206)</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Telefón</div>
+            <div class="contact-item-value"><a href="tel:+421093606380" style="color:var(--deep);text-decoration:none;">+421 093 606 380</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div>
+            <div class="contact-item-label">Rezervácia</div>
+            <div class="contact-item-value">Telefonicky alebo e‑mailom</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📘</div>
+          <div>
+            <div class="contact-item-label">Sociálne siete</div>
+            <div class="contact-item-value"><a href="https://www.facebook.com/kvetka.hanova" style="color:var(--rose);text-decoration:none;">Facebook – Kvetka Hanová</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3 class="form-title">Napíšte nám</h3>
+      <div class="form-group">
+        <label>Vaše meno</label>
+        <input type="text" placeholder="Meno a priezvisko">
+      </div>
+      <div class="form-group">
+        <label>Telefón / E-mail</label>
+        <input type="text" placeholder="+421 ... alebo email@...">
+      </div>
+      <div class="form-group">
+        <label>Správa</label>
+        <textarea placeholder="Napíšte nám čo vás zaujíma alebo akú službu chcete..."></textarea>
+      </div>
+      <button class="form-submit">Odoslať správu</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Salón <span>Markéta</span></a>
+  <p>© 2024 Salón Markéta, Poprad. Všetky práva vyhradené.</p>
+  <div class="footer-links">
+    <a href="#sluzby">Služby</a>
+    <a href="#o-nas">O nás</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+</footer>
+
+</body>
+</html>
